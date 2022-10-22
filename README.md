@@ -12,6 +12,8 @@
 
 This is a simple file generator that uses .xml files to generate files in multiple languages.
 
+`gen.source.xml`, `gen.source.simulator.xml` and `gen.source.intrusion.xml` are example files and should not be used for anything else.
+
 ## Usage
 
 The file generator uses .xml files to generate files. The structure of the .xml file is explained below in the wiki. (not yet implemented)
