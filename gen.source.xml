@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<files type="cpp">
+    <export_location>./export/</export_location>
+    <author name="Tom V."></author>
+    <namespace name="Sim"></namespace>
+    <file name="City">
+        <class name="City">
+            <method name="City">
+                <parameter>
+                    <type>int</type>
+                    <name>population</name>
+                </parameter>
+            </method>
+            <method name="~City"></method>
+            <method name="NoParamTest">
+                <return>int</return>
+            </method>
+            <method name="OneParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+            </method>
+            <method name="TwoParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+                <parameter>
+                    <type>int</type>
+                    <name>amount</name>
+                </parameter>
+            </method>
+            <method name="ThreeParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+                <parameter>
+                    <type>int</type>
+                    <name>amount</name>
+                </parameter>
+                <parameter>
+                    <type>int</type>
+                    <name>count</name>
+                </parameter>
+            </method>
+        </class>
+    </file>
+    <file name="Country">
+        <class name="Country">
+            <method name="Country">
+                <parameter>
+                    <type>int</type>
+                    <name>population</name>
+                </parameter>
+            </method>
+            <method name="~Country"></method>
+            <method name="Sim">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>test</name>
+                </parameter>
+            </method>
+        </class>
+    </file>
+    <file name="NoClassTest">
+    </file>
+</files>

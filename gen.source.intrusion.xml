@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<files type="cpp">
+    <export_location>./src/</export_location>
+    <author name="Tom V."></author>
+    <namespace name="Sim"></namespace>
+    <file name="Test">
+    </file>
+</files>
