@@ -80,11 +80,15 @@ if __name__ == '__main__':
     cwd = os.getcwd()
 
     # get the xml files
+    valid_files_count = 0
     for file in os.listdir(cwd):
         if re.match("gen.source.+.xml", file) or re.match("gen.source.xml", file):
+            valid_files_count += 1
             print("--------------------------------------------------------------------------------")
             print('\033[93m' + "Generating files based on " + file + "..." + '\033[0m')
             generate_files_based_on_xml(file)
             print('\033[92m' + "Done!" + '\033[0m')
             print("--------------------------------------------------------------------------------")
             
+    if valid_files_count == 0:
+        print('\033[91m' + "No xml files found with a valid name" + '\033[0m')
