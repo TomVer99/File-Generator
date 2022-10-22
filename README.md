@@ -25,3 +25,7 @@ When the .xml files are set up, the generator can be run. It does not take any a
 | C++ (class)     | ✔️       | 🔶      |
 | C++ (functions) | ❌       | ✔️      |
 | C               | ❌       | ✔️      |
+
+## Requirements
+
+- Python 3.X or higher
