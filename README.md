@@ -31,3 +31,4 @@ When the .xml files are set up, the generator can be run. It does not take any a
 ## Requirements
 
 - Python 3.X (tested with 3.10.0)
+  - xmlschema
