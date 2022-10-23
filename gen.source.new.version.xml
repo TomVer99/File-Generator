@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<files type="cpp_class">
+    <export_location>./src/</export_location>
+    <author>Tom v.</author>
+    <namespace>new_version</namespace>
+    <file name="Test">
+        <class>
+            <constructor>
+                <parameter>
+                    <type>int</type>
+                    <name>population</name>
+                </parameter>
+            </constructor>
+            <destructor></destructor>
+            <method name="OneParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+            </method>
+        </class>
+    </file>
+</files>
