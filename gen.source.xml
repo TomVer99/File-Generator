@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<files type="cpp">
+<files type="cpp_class">
     <export_location>./export/</export_location>
-    <author name="Tom V."></author>
-    <namespace name="Sim"></namespace>
+    <author>Tom .V</author>
+    <namespace>Sim</namespace>
     <file name="City">
-        <class name="City">
+        <class>
             <method name="City">
                 <parameter>
                     <type>int</type>
