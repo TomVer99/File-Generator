@@ -1,6 +1,6 @@
 from datetime import datetime
 import xml.dom.minidom
-import src.CPPGenerator as cpp_gen
+import CPP_Generator as cpp_gen
 import os
 import re
 
