@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="files">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <!-- Make sure there is exactly one export_location -->
+                    <xs:element name="export_location" type="xs:string"></xs:element>
+                </xs:choice>
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <!-- Make sure there is exactly one author -->
+                    <xs:element name="author" type="xs:string"></xs:element>
+                </xs:choice>
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <!-- Make sure there is exactly one namespace -->
+                    <xs:element name="namespace" type="xs:string"></xs:element>
+                </xs:choice>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="file">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:choice minOccurs="1" maxOccurs="1">
+                                    <xs:element name="class">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:choice minOccurs="1" maxOccurs="1">
+                                                    <!-- Make sure there is exactly one constructor -->
+                                                    <xs:element name="constructor">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                                    <xs:element name="parameter">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="type" type="xs:string" />
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                                <xs:choice minOccurs="1" maxOccurs="1">
+                                                    <!-- Make sure there is exactly one destructor -->
+                                                    <xs:element name="destructor">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                                    <xs:element name="parameter">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="type" type="xs:string" />
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                    <xs:element name="method">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:choice minOccurs="1" maxOccurs="1">
+                                                                    <xs:element name="return" type="xs:string"></xs:element>
+                                                                </xs:choice>
+                                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                                    <xs:element name="parameter">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="type" type="xs:string" />
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="name" type="xs:string" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:choice>
+                            </xs:sequence>
+                            <xs:attribute name="name" type="xs:string" use="required" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
