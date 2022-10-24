@@ -2,9 +2,9 @@
 
 <files type="cpp.class">
     <export_location>./export/</export_location>
-    <author>Tom v.</author>
+    <author>Tom V.</author>
     <namespace>new_version</namespace>
-    <file name="Test">
+    <file name="test">
         <class>
             <constructor>
                 <parameter>
