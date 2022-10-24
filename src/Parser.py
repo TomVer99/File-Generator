@@ -1,34 +1,66 @@
-import cpp.CPP_Parser as cpp_parser
+import cpp.parser.cpp_parser as cpp_parser
 import xml.dom.minidom
 import GeneratorLogging as GL
-
+import xmlschema
 import os
 
-def parse_xml_file(file):
+parsers_location:str = '.'
+
+def __parse_xml_file_language(file):
     xml_file = xml.dom.minidom.parse(file)
     try:
         root = xml_file.documentElement
     except:
-        return False
+        return [False, '']
     else:
         if root.hasAttribute('type'):
             type = root.getAttribute('type')
+            return [True, type]
+        else:
+            return [False, '']
 
-    result = False
+def parse_xml_file(file):
+    """
+    Takes absolute path to xml file\n
+    returns [bool, type]\n
+    [ if file is valid (true = valid), language type ]
+    """
 
-    match type:
-        case 'cpp_class':
-            result = cpp_parser.parse_xml_file(file, cpp_parser.cpp_types.CPP_WITH_CLASS)
-        case 'cpp_func':
-            result = cpp_parser.parse_xml_file(file, cpp_parser.cpp_types.CPP_WITHOUT_CLASS)
-        case _:
-            result = [False, 'Unknown type']
+    valid_base_file = __parse_xml_file_language(file)
 
-    if result:
-        GL.print_to_console('xml file is valid', GL.Color.SUCCESS)
+    xml_schema = None
+
+    if valid_base_file[0]:
+
+        # cpp
+        xml_schema = cpp_parser.parse_language(valid_base_file[1])
+        
+        # c
+        # TODO
+
+        if xml_schema == None: # no supported language was detected
+            GL.log_error('Language not supported: ' + valid_base_file[1])
+            return [False, '']
     else:
-        GL.print_to_console('xml file is not valid', GL.Color.FAIL)
+        GL.log_error('Invalid xml file: ' + file)
+        return [False, '']
+
+    # get absolute path to xml schema
+    xml_schema = parsers_location + xml_schema
+    xml_schema = os.path.join(os.path.dirname(__file__), xml_schema)
+
+    xml_schema = xmlschema.XMLSchema(xml_schema)
+
+    if xml_schema.is_valid(file):
+        GL.log_success('Valid ' + valid_base_file[1] + ' xml file: ' + file)
+        return [True, valid_base_file[1]]
+    else:
+        GL.log_error('Invalid ' + valid_base_file[1] + ' xml file: ' + file)
+        return [False, '']
 
 # TODO: remove this
 if __name__ == "__main__":
-    parse_xml_file(os.path.join(os.path.dirname(__file__), "..", "gen.source.new.version.xml"))
+    result = parse_xml_file(os.path.join(os.path.dirname(__file__), "..", "gen.source.new.version.xml"))
+
+    if result[0]:
+        GL.log_notify('Language: ' + result[1])
