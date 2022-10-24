@@ -2,9 +2,41 @@
 
 <files type="cpp.class">
     <export_location>../export/</export_location>
-    <author>Tom v.</author>
+    <author>Tom V.</author>
     <namespace>new_version</namespace>
-    <file name="Test">
+    <file name="test">
+        <class>
+            <constructor>
+                <parameter>
+                    <type>int</type>
+                    <name>population</name>
+                </parameter>
+            </constructor>
+            <destructor></destructor>
+            <method name="OneParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+            </method>
+            <method name="TwoParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+                <parameter>
+                    <type>int</type>
+                    <name>amount</name>
+                </parameter>
+            </method>
+            <method name="ReturnIntTest">
+                <return>int</return>
+            </method>
+        </class>
+    </file>
+    <file name="test2">
         <class>
             <constructor>
                 <parameter>

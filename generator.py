@@ -1,9 +1,23 @@
 import modules.generator_logging as GL
 import modules.parser as P
+import modules.generator as G
 
 import os
 
+import glob
+
 if __name__ == '__main__':
+
+    # DEBUG
+    # TODO: remove me
+    # dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        files_to_remove = glob.glob('..\export\*')
+        for f in files_to_remove:
+            os.remove(f)
+        os.rmdir('..\export')
+    except:
+        pass
 
     this_folder = os.getcwd()
     module_folder = os.path.join(this_folder, 'modules')
@@ -76,4 +90,13 @@ if __name__ == '__main__':
 # |                                                                      |
 # +----------------------------------------------------------------------+
 
+    for index, file in enumerate(valid_files):
+        GL.log_notify('Generating file: ' + file)
+        file_abs = os.path.abspath(file)
+        if not G.generate_files(files_export_dirs[index], file_abs, files_type[index], settings_file):
+            GL.log_error('Failed to generate file ' + file)
+            exit(1)
+        else:
+            GL.log_success('Files generated for: ' + file)
 
+    GL.log_notify('Finished generating files', end='\n\n')
