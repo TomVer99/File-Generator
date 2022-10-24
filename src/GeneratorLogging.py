@@ -6,5 +6,14 @@ class Color(Enum):
     FAIL = '\033[91m'
     END = '\033[0m'
 
-def print_to_console(message:str, color:Color, tabs:int = 1, end:str = '\n'):
+def log(message:str, color:Color, tabs:int = 1, end:str = '\n'):
     print(color.value + '  ' * tabs + message + Color.END.value, end=end)
+
+def log_error(message:str, tabs:int = 1, end:str = '\n'):
+    log(message, Color.FAIL, tabs, end)
+
+def log_success(message:str, tabs:int = 1, end:str = '\n'):
+    log(message, Color.SUCCESS, tabs, end)
+
+def log_notify(message:str, tabs:int = 1, end:str = '\n'):
+    log(message, Color.NOTIFY, tabs, end)
