@@ -64,7 +64,10 @@ def __parse_export_location(project_dir, file):
 
     # if export location exists make sure it is empty
     if os.listdir(location):
-        return [False, 'Export location already exists and is not empty. Stopping to prevent data loss.']
+        for items in os.listdir(location):
+            item_path = os.path.join(location, items)
+            if os.path.isfile(item_path):
+                return [False, 'Export location already exists and is not empty. Stopping to prevent data loss.']
 
     return [True, location]
 
