@@ -1,4 +1,4 @@
-import cpp.parser.cpp_parser as cpp_parser
+import cpp.parser as parser
 import xml.dom.minidom
 import GeneratorLogging as GL
 import xmlschema
@@ -33,7 +33,8 @@ def parse_xml_file(file):
     if valid_base_file[0]:
 
         # cpp
-        xml_schema = cpp_parser.parse_language(valid_base_file[1])
+        if xml_schema == None: # supported language not yet detected
+            xml_schema = parser.parse_language(valid_base_file[1])
         
         # c
         # TODO
