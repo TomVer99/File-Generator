@@ -1,4 +1,4 @@
-import modules.cpp.parser as cpp_parser
+import modules.cpp.parser as cpp
 
 import os
 import re
@@ -86,8 +86,8 @@ def parse_source_file(project_dir, file):
 # +----------------------------------------------------------------------+
 
     # cpp
-    supported_types += cpp_parser.get_types()
-    supported_types_xsd += cpp_parser.get_xsd()
+    supported_types += cpp.get_types()
+    supported_types_xsd += cpp.get_xsd()
 
 # +----------------------------------------------------------------------+
 # |                                                                      |
