@@ -63,6 +63,7 @@
                                                     </xs:element>
                                                 </xs:choice>
                                                 <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                    <!-- 0..* methods -->
                                                     <xs:element name="method">
                                                         <xs:complexType>
                                                             <xs:sequence>
