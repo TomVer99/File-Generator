@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<files type="cpp.class">
+    <export_location>../export/subfolder_test/</export_location>
+    <author>Tom V.</author>
+    <namespace>new_version</namespace>
+    <file name="test3">
+        <class>
+            <constructor>
+                <parameter>
+                    <type>int</type>
+                    <name>population</name>
+                </parameter>
+            </constructor>
+            <destructor></destructor>
+            <method name="OneParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+            </method>
+            <method name="TwoParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+                <parameter>
+                    <type>int</type>
+                    <name>amount</name>
+                </parameter>
+            </method>
+            <method name="ReturnIntTest">
+                <return>int</return>
+            </method>
+        </class>
+    </file>
+    <file name="test4">
+        <class>
+            <constructor>
+                <parameter>
+                    <type>int</type>
+                    <name>population</name>
+                </parameter>
+            </constructor>
+            <destructor></destructor>
+            <method name="OneParamTest">
+                <return>void</return>
+                <parameter>
+                    <type>int</type>
+                    <name>age</name>
+                </parameter>
+            </method>
+        </class>
+    </file>
+</files>

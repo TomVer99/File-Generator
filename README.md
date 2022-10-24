@@ -22,12 +22,13 @@ When the .xml files are set up, the generator can be run. It does not take any a
 
 ## Supported languages
 
-| Language        | Supported | Planned |
-| --------------- | --------- | ------- |
-| C++ (class)     | ✔️       | 🔶      |
-| C++ (functions) | ❌       | ✔️      |
-| C               | ❌       | ✔️      |
+| Language        | Generation | Planned  | Parsing | Planned |
+| --------------- | ---------- | -------- | ------- | ------- |
+| C++ (class)     | ✔️         | 🔶      | ✔️      | 🔶     |
+| C++ (functions) | ❌         | ✔️      | ❌      | ✔️     |
+| C               | ❌         | ✔️      | ❌      | ✔️     |
 
 ## Requirements
 
-- Python 3.X or higher
+- Python 3.X (tested with 3.10.0)
+  - xmlschema

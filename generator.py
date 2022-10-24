@@ -1,103 +1,89 @@
-from datetime import datetime
-import xml.dom.minidom
-import src.CPPGenerator as cpp_gen
+import modules.generator_logging as GL
+import modules.parser as P
+import modules.generator as G
+
 import os
-import re
-
-def generate_files_based_on_xml(xml_file):
-    # setup
-    tree = xml.dom.minidom.parse(xml_file)
-    root = tree.documentElement
-
-    # project info
-    date = datetime.now().strftime("%Y-%m-%d")
-    author_name = root.getElementsByTagName('author')[0].getAttribute('name')
-    namespace = root.getElementsByTagName('namespace')[0].getAttribute('name')
-
-    # get comment_block settings
-    settings = xml.dom.minidom.parse('./src/gen.settings.xml')
-    settings_root = settings.documentElement
-    comment_blocks = settings_root.getElementsByTagName('comment_blocks')[0]
-    comment_block_width = int(comment_blocks.getElementsByTagName('width')[0].childNodes[0].nodeValue)
-    comment_block_height = int(comment_blocks.getElementsByTagName('height')[0].childNodes[0].nodeValue)
-    comment_block_end_of_file_height = int(comment_blocks.getElementsByTagName('end_of_file_height')[0].childNodes[0].nodeValue)
-    
-    # get export location
-    export_location = root.getElementsByTagName('export_location')[0].childNodes[0].nodeValue
-    if re.match(export_location, "./src/+"):
-        export_location = export_location.replace("./src/", "./src2/")
-        print('\033[91m' + "Export location intruded on src folder, changed to: " + export_location + '\033[0m')
-
-    # get files to be generated
-    files = root.getElementsByTagName('file')
-
-    print('\033[93m' + "Exporting " + str(len(files)) + " files to: " + export_location + '\033[0m')
-
-    source_files_type = root.getAttribute('type')
-    match source_files_type:
-        case "cpp":
-            for index, file in enumerate(files):
-                print('\033[93m' + '\t' + "Generating file " + str(index + 1) + "..." + '\033[0m')
-                generate_cpp_files(export_location,
-                                    author_name,
-                                    date,
-                                    file,
-                                    namespace,
-                                    comment_block_width,
-                                    comment_block_height,
-                                    comment_block_end_of_file_height)
-
-def generate_cpp_files(location,
-                        author_name,
-                        date,
-                        file,
-                        namespace,
-                        comment_block_width,
-                        comment_block_height,
-                        comment_block_end_of_file_height):
-    cpp_gen.generate_cpp_class_file(location,
-                                    author_name,
-                                    date,
-                                    file.getAttribute('name'),
-                                    namespace,
-                                    file.getElementsByTagName('class'),
-                                    comment_block_width,
-                                    comment_block_height,
-                                    comment_block_end_of_file_height)
-
-    cpp_gen.generate_hpp_class_file(location,
-                                    author_name,
-                                    date,
-                                    file.getAttribute('name'),
-                                    namespace,
-                                    file.getElementsByTagName('class'),
-                                    comment_block_width,
-                                    comment_block_height,
-                                    comment_block_end_of_file_height)
 
 if __name__ == '__main__':
-    # get current working directory
-    cwd = os.getcwd()
 
-    # get the xml files
-    valid_files_count = 0
-    valid_files = []
-    print("--------------------------------------------------------------------------------")
-    print('\033[93m' + "Scanning for files..." + '\033[0m')
-    print('\033[93m' + str(len(os.listdir(cwd)) - 1), "files/folders found" + '\033[0m')
-    for file in os.listdir(cwd):
-        if re.match("gen.source.+.xml", file) or re.match("gen.source.xml", file):
-            valid_files_count += 1
-            valid_files.append(file)
-            print('\033[92m' + "\tCorrectly named file found: " + file + '\033[0m')
+    this_folder = os.getcwd()
+    module_folder = os.path.join(this_folder, 'modules')
 
-    if valid_files_count == 0:
-        print('\033[91m' + "No xml files found with a valid name" + '\033[0m')
+    GL.log_notify('Starting generator.py')
+
+    GL.log_divider()
+
+    GL.log_info('Starting validation phase', end='\n\n')
+
+# +----------------------------------------------------------------------+
+# |                                                                      |
+# |                           Validation phase                           |
+# |                                                                      |
+# +----------------------------------------------------------------------+
+
+# +------------------------------------------------+
+# |             scan for settings file             |
+# +------------------------------------------------+
+
+    settings_file = P.scan_for_settings_file(module_folder)
+
+    if not settings_file:
+        GL.log_error('(valid) gen.settings.xml not found')
+        exit(1)
     else:
-        print('\033[92m' + str(valid_files_count) + " Correctly named files found\n" + '\033[0m')
+        GL.log_success('valid gen.settings.xml found')
 
-    for file in valid_files:
-        print('\033[93m' + "Generating files based on " + file + "..." + '\033[0m')
-        generate_files_based_on_xml(file)
-        print('\033[92m' + "Done!\n" + '\033[0m')
-    print("--------------------------------------------------------------------------------")
+# +------------------------------------------------+
+# |             scan for source files              |
+# +------------------------------------------------+
+
+    source_files = P.scan_for_source_files(this_folder)
+
+    if len(source_files) == 0:
+        GL.log_error('no source files found')
+        exit(1)
+
+# +------------------------------------------------+
+# |             validate source files              |
+# +------------------------------------------------+
+
+    valid_files = []
+    files_type = []
+    files_export_dirs = []
+
+    for index, file in enumerate(source_files):
+        GL.log_notify('Found source file: ' + file)
+        result = P.parse_source_file(this_folder, file)
+        if result[0]:
+            GL.log_success('Source file is valid')
+            valid_files.append(file)
+            files_type.append(result[1])
+            files_export_dirs.append(result[2])
+        else:
+            GL.log_error('Source file is invalid: ' + result[1])
+
+    GL.log_divider()
+
+    if len(valid_files) == 0:
+        GL.log_error('no valid source files found')
+        exit(1)
+    else:
+        GL.log_success('valid source files found')
+        GL.log_info('starting generation phase', end='\n\n')
+
+# +----------------------------------------------------------------------+
+# |                                                                      |
+# |                           Generation phase                           |
+# |                                                                      |
+# +----------------------------------------------------------------------+
+
+    for index, file in enumerate(valid_files):
+        GL.log_notify('Generating file: ' + file)
+        file_abs = os.path.abspath(file)
+        if not G.generate_files(files_export_dirs[index], file_abs, files_type[index], settings_file):
+            GL.log_error('Failed to generate file ' + file)
+            exit(1)
+        else:
+            GL.log_success('Files generated for: ' + file)
+
+    GL.log_notify('Finished generating files', end='\n\n')
