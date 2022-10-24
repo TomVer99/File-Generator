@@ -4,8 +4,6 @@ import modules.generator as G
 
 import os
 
-import glob
-
 if __name__ == '__main__':
 
     this_folder = os.getcwd()
