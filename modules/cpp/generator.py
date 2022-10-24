@@ -120,7 +120,8 @@ def __write_method(file, method_root, class_name, is_source, is_destructor = Fal
         file.write("\n{\n")
         file.write("    // TODO: Implement\n")
         if method_return_type != "" and method_return_type != "void":
-            file.write("    return 0;\n")
+            file.write(f"    {method_return_type} dummy;\n")
+            file.write("    return dummy;\n")
         file.write("}\n\n")
     else:
         file.write(";\n\n")
