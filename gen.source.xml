@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<files type="cpp_class">
+<files type="cpp.class">
     <export_location>./export/</export_location>
-    <author>Tom .V</author>
-    <namespace>Sim</namespace>
-    <file name="City">
+    <author>Tom v.</author>
+    <namespace>new_version</namespace>
+    <file name="Test">
         <class>
-            <method name="City">
+            <constructor>
                 <parameter>
                     <type>int</type>
                     <name>population</name>
                 </parameter>
-            </method>
-            <method name="~City"></method>
-            <method name="NoParamTest">
-                <return>int</return>
-            </method>
+            </constructor>
+            <destructor></destructor>
             <method name="OneParamTest">
                 <return>void</return>
                 <parameter>
@@ -23,52 +20,6 @@
                     <name>age</name>
                 </parameter>
             </method>
-            <method name="TwoParamTest">
-                <return>void</return>
-                <parameter>
-                    <type>int</type>
-                    <name>age</name>
-                </parameter>
-                <parameter>
-                    <type>int</type>
-                    <name>amount</name>
-                </parameter>
-            </method>
-            <method name="ThreeParamTest">
-                <return>void</return>
-                <parameter>
-                    <type>int</type>
-                    <name>age</name>
-                </parameter>
-                <parameter>
-                    <type>int</type>
-                    <name>amount</name>
-                </parameter>
-                <parameter>
-                    <type>int</type>
-                    <name>count</name>
-                </parameter>
-            </method>
         </class>
-    </file>
-    <file name="Country">
-        <class name="Country">
-            <method name="Country">
-                <parameter>
-                    <type>int</type>
-                    <name>population</name>
-                </parameter>
-            </method>
-            <method name="~Country"></method>
-            <method name="Sim">
-                <return>void</return>
-                <parameter>
-                    <type>int</type>
-                    <name>test</name>
-                </parameter>
-            </method>
-        </class>
-    </file>
-    <file name="NoClassTest">
     </file>
 </files>
