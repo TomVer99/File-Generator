@@ -75,3 +75,4 @@ def __group_1_write_doc_method(file, return_type, parameters, description = ""):
         file.write(f" * @return {return_type}\n")
         
     file.write(f" */\n")
+    

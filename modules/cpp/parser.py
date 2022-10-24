@@ -12,3 +12,4 @@ def get_xsd():
     for file in __parsers:
         xsd.append(os.path.join(os.path.dirname(__file__), file))
     return xsd
+    
