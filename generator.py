@@ -87,3 +87,4 @@ if __name__ == '__main__':
             GL.log_success('Files generated for: ' + file)
 
     GL.log_notify('Finished generating files', end='\n\n')
+    exit(0)
