@@ -8,6 +8,12 @@ if __name__ == '__main__':
     this_folder = os.getcwd()
     module_folder = os.path.join(this_folder, 'modules')
 
+    GL.log_notify('Starting generator.py')
+
+    GL.log_divider()
+
+    GL.log_info('Starting validation phase', end='\n\n')
+
 # +----------------------------------------------------------------------+
 # |                                                                      |
 # |                           Validation phase                           |
@@ -53,9 +59,14 @@ if __name__ == '__main__':
         else:
             GL.log_error('Source file is invalid: ' + result[1])
 
+    GL.log_divider()
+
     if len(valid_files) == 0:
         GL.log_error('no valid source files found')
         exit(1)
+    else:
+        GL.log_success('valid source files found')
+        GL.log_info('starting generation phase', end='\n\n')
 
 # +----------------------------------------------------------------------+
 # |                                                                      |
