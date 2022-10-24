@@ -48,6 +48,7 @@ if __name__ == '__main__':
 
     valid_files = []
     files_type = []
+    files_export_dirs = []
 
     for index, file in enumerate(source_files):
         GL.log_notify('Found source file: ' + file)
@@ -56,6 +57,7 @@ if __name__ == '__main__':
             GL.log_success('Source file is valid')
             valid_files.append(file)
             files_type.append(result[1])
+            files_export_dirs.append(result[2])
         else:
             GL.log_error('Source file is invalid: ' + result[1])
 
