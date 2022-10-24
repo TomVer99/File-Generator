@@ -1,4 +1,4 @@
-import cpp.__shared as shared
+import modules.cpp.__shared as shared
 
 __parsers = ['/cpp/gen.settings.cpp.class.xsd', '/cpp/gen.settings.cpp.func.xsd']
 
