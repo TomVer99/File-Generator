@@ -66,14 +66,14 @@ def __parse_export_location(project_dir, file):
     if os.listdir(location):
         return [False, 'Export location already exists and is not empty. Stopping to prevent data loss.']
 
-    return [True, '']
+    return [True, location]
 
 # +----------------------------------------------------------------------+
 
 def parse_source_file(project_dir, file):
     """
     Parse a source file.\n
-    Returns [True, language_type] if successful, [False, error_message] otherwise.
+    Returns [True, language_type, export_dir] if successful, [False, error_message, ""] otherwise.
     """
 
     supported_types = []
@@ -104,13 +104,13 @@ def parse_source_file(project_dir, file):
             if xsd.is_valid(file):
                 export_check = __parse_export_location(project_dir, file)
                 if export_check[0]:
-                    return [True, language_type]
+                    return [True, language_type, export_check[1]]
                 else:
-                    return [False, export_check[1]]
+                    return [False, export_check[1], '']
             else:
-                return [False, 'File is not valid according to XSD']
+                return [False, 'File is not valid according to XSD', '']
 
-    return [False, 'Language type not supported']
+    return [False, 'Language type not supported', '']
 
 # +----------------------------------------------------------------------+
 
