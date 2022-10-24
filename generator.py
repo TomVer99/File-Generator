@@ -8,17 +8,6 @@ import glob
 
 if __name__ == '__main__':
 
-    # DEBUG
-    # TODO: remove me
-    # dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    try:
-        files_to_remove = glob.glob('..\export\*')
-        for f in files_to_remove:
-            os.remove(f)
-        os.rmdir('..\export')
-    except:
-        pass
-
     this_folder = os.getcwd()
     module_folder = os.path.join(this_folder, 'modules')
 
