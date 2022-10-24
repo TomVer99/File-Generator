@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<files type="cpp">
+<files type="cpp.class">
     <export_location>./export2/</export_location>
     <author name="Tom V."></author>
     <namespace name="Sim"></namespace>
