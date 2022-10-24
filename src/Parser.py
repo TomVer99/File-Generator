@@ -1,8 +1,10 @@
-import cpp.parser as parser
+import cpp.cpp_parser as cpp_parser
 import xml.dom.minidom
-import GeneratorLogging as GL
+import generator_logging as GL
 import xmlschema
 import os
+
+# import cpp.generator as generator
 
 parsers_location:str = '.'
 
@@ -34,7 +36,7 @@ def parse_xml_file(file):
 
         # cpp
         if xml_schema == None: # supported language not yet detected
-            xml_schema = parser.parse_language(valid_base_file[1])
+            xml_schema = cpp_parser.parse_language(valid_base_file[1])
         
         # c
         # TODO
@@ -65,3 +67,8 @@ if __name__ == "__main__":
 
     if result[0]:
         GL.log_notify('Language: ' + result[1])
+        generator.generate_file(os.path.join(os.path.dirname(__file__), "..", "gen.source.new.version.xml"),
+                                os.path.join(os.path.dirname(__file__), "gen.settings.xml"),
+                                os.path.join(os.path.dirname(__file__), "..", "gen_output")
+                                , result[1])
+

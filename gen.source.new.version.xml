@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <files type="cpp.class">
-    <export_location>./src/</export_location>
+    <export_location>./export/</export_location>
     <author>Tom v.</author>
     <namespace>new_version</namespace>
     <file name="Test">
