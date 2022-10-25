@@ -25,7 +25,7 @@ When the .xml files are set up, the generator can be run. It does not take any a
 | Language        | Generation | Planned  | Parsing | Planned |
 | --------------- | ---------- | -------- | ------- | ------- |
 | C++ (class)     | ✔️         | 🔶      | ✔️      | 🔶     |
-| C++ (functions) | ❌         | ✔️      | ❌      | ✔️     |
+| C++ (functions) | ✔️         | 🔶      | ✔️      | 🔶     |
 | C               | ❌         | ✔️      | ❌      | ✔️     |
 
 ## Requirements

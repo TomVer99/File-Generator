@@ -285,10 +285,118 @@ def __generate_files_with_class(export_dir, xml_root, author_name,
 # |                                                                      |
 # +----------------------------------------------------------------------+
 
+def __write_function(file, function_root, is_source):
+    function_name = function_root.getAttribute("name")
+    function_return_type = function_root.getElementsByTagName('return')[0].childNodes[0].nodeValue
+    function_parameters = function_root.getElementsByTagName('parameter')
+
+    if not is_source:
+        DG.cpp_write_doc_function(file, function_return_type, function_parameters)
+
+    file.write(f"{function_return_type} {function_name}(")
+
+    if len(function_parameters) == 0:
+        file.write(")")
+
+    for parameter in function_parameters:
+        param_type = parameter.getElementsByTagName('type')[0].childNodes[0].nodeValue
+        param_name = parameter.getElementsByTagName('name')[0].childNodes[0].nodeValue
+        
+        if len(function_parameters) == 1:
+            file.write(f"{param_type} {param_name})")
+
+        else:
+            if parameter == function_parameters[0]:               # first parameter
+                file.write(f"{param_type} {param_name},\n")
+
+            elif parameter == function_parameters[-1]:            # last parameter
+                file.write(" " * ((len(function_return_type) + len(function_name)) + 2))
+                file.write(f"{param_type} {param_name})")
+
+            else:                                               # other parameter
+                file.write(" " * ((len(function_return_type) + len(function_name)) + 2))
+                file.write(f"{param_type} {param_name},\n")
+
+    if is_source:
+        file.write("\n{\n")
+        file.write("    // TODO: Implement\n")
+        if function_return_type != "void":
+            file.write(f"    {function_return_type} dummy;\n")
+            file.write("    return dummy;\n")
+        file.write("}\n\n")
+    else:
+        file.write(";\n\n")
+
+def __write_functions(file, file_root, is_source):
+    for function in file_root.getElementsByTagName("function"):
+        __write_function(file, function, is_source)
+
+# +----------------------------------------------------------------------+
+
+def __generate_source_file_without_class(file, file_root, author_name, 
+                                        namespace_name, date, file_name,
+                                        comment_block_width, comment_block_height, comment_block_end_of_file_height):
+    file_name_with_extension = file_name + __source_file_extension
+    __write_file_intro(file, file_name_with_extension, True, date, author_name, comment_block_width, comment_block_height)
+
+    CBG.write_comment_block(file, 'Own Includes', comment_block_width, comment_block_height, __comment_type)
+    __write_include(file, file_name + __header_file_extension, True)
+    CBG.write_comment_block(file, 'System Includes', comment_block_width, comment_block_height, __comment_type)
+    __write_namespace(file, namespace_name, True)
+    CBG.write_comment_block(file, 'Local constants / Defines', comment_block_width, comment_block_height, __comment_type)
+    __structs_and_enums(file, file_root, False)
+    
+    CBG.write_comment_block(file, 'Functions', comment_block_width, comment_block_height, __comment_type)
+    __write_functions(file, file_root, True)
+
+    __write_namespace(file, namespace_name, False)
+    CBG.write_comment_block(file, 'End of File', comment_block_width, comment_block_end_of_file_height, __comment_type, True, True)
+
+# +----------------------------------------------------------------------+
+
+def __generate_header_file_without_class(file, file_root, author_name, 
+                                        namespace_name, date, file_name,
+                                        comment_block_width, comment_block_height, comment_block_end_of_file_height):
+    file_name_with_extension = file_name + __header_file_extension
+    __write_file_intro(file, file_name_with_extension, False, date, author_name, comment_block_width, comment_block_height)
+
+    __write_include_guard(file, file_name, True)
+
+    CBG.write_comment_block(file, 'Own Includes', comment_block_width, comment_block_height, __comment_type)
+    CBG.write_comment_block(file, 'System Includes', comment_block_width, comment_block_height, __comment_type)
+    __write_namespace(file, namespace_name, True)
+    CBG.write_comment_block(file, 'Global constants / Defines', comment_block_width, comment_block_height, __comment_type)
+    __structs_and_enums(file, file_root, True)
+            
+    CBG.write_comment_block(file, 'Functions', comment_block_width, comment_block_height, __comment_type)
+    __write_functions(file, file_root, False)
+
+    __write_namespace(file, namespace_name, False)
+    __write_include_guard(file, file_name, False)
+    CBG.write_comment_block(file, 'End of File', comment_block_width, comment_block_end_of_file_height, __comment_type, True, True)
+
+# +----------------------------------------------------------------------+
+
 def __generate_files_without_class(export_dir, xml_root, author_name, 
                                     namespace_name, date, comment_block_width,
                                     comment_block_height, comment_block_end_of_file_height):
-    return False
+    for file_element in xml_root.getElementsByTagName("file"):
+        file_name = str(file_element.getAttribute('name')).upper().capitalize()
+        # +------------------------------------------------------------------------------------------------------------+
+        s_file = open(os.path.join(export_dir, file_name + __source_file_extension), 'w')
+        __generate_source_file_without_class(s_file, file_element, author_name,
+                                            namespace_name, date, file_name,
+                                            comment_block_width, comment_block_height, comment_block_end_of_file_height)
+        s_file.close()
+        # +------------------------------------------------------------------------------------------------------------+
+        h_file = open(os.path.join(export_dir, file_name + __header_file_extension), 'w')
+        __generate_header_file_without_class(h_file, file_element, author_name,
+                                            namespace_name, date, file_name,
+                                            comment_block_width, comment_block_height, comment_block_end_of_file_height)
+        h_file.close()
+        # +------------------------------------------------------------------------------------------------------------+
+
+    return True
 
 # +----------------------------------------------------------------------+
 # |                                                                      |
