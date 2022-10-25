@@ -55,9 +55,72 @@ def __write_namespace(file, namespace, is_open):
 
 def __write_include(file, include, local):
     if local:
-        file.write(f"#include \"{include}\"\n")
+        file.write(f"#include \"{include}\"\n\n")
     else:
-        file.write(f"#include <{include}>\n")
+        file.write(f"#include <{include}>\n\n")
+
+# +----------------------------------------------------------------------+
+
+def __write_enum(file, enum_root):
+    enum_name = enum_root.getAttribute("name")
+    file.write(f"enum {enum_name}\n{{\n")
+
+    members = enum_root.getElementsByTagName("member")
+
+    for member in members:
+        member_name = member.getElementsByTagName("name")[0].childNodes[0].nodeValue
+        member_value = None
+        file.write(f"    {member_name}")
+        try:
+            member_value = member.getElementsByTagName("value")[0].childNodes[0].nodeValue
+            file.write(f" = {member_value}")
+        except:
+            pass
+
+        # if last member
+        if member != members[-1]:
+            file.write(",\n")
+        else:
+            file.write("\n")
+
+    file.write(f"}}; // enum {enum_name}\n\n")
+
+# +----------------------------------------------------------------------+
+
+def __write_struct(file, struct_root):
+    struct_name = struct_root.getAttribute("name")
+    file.write(f"struct {struct_name}\n{{\n")
+
+    members = struct_root.getElementsByTagName("member")
+
+    for member in members:
+        member_type = member.getElementsByTagName("type")[0].childNodes[0].nodeValue
+        member_name = member.getElementsByTagName("name")[0].childNodes[0].nodeValue
+        file.write(f"    {member_type} {member_name};\n")
+
+    file.write(f"}}; // struct {struct_name}\n\n")
+
+# +----------------------------------------------------------------------+
+
+def __structs_and_enums(file, file_root, is_global):
+    wrapper_root = None
+    try:
+        if is_global:
+            wrapper_root = file_root.getElementsByTagName('global')[0]
+        else:
+            wrapper_root = file_root.getElementsByTagName('local')[0]
+    except:
+        return
+    
+    enums = wrapper_root.getElementsByTagName('enum')
+
+    for enum in enums:
+        __write_enum(file, enum)
+
+    structs = wrapper_root.getElementsByTagName('struct')
+
+    for struct in structs:
+        __write_struct(file, struct)
 
 # +----------------------------------------------------------------------+
 # |                                                                      |
@@ -160,8 +223,9 @@ def __generate_source_file_with_class(file, file_root, author_name,
     CBG.write_comment_block(file, 'System Includes', comment_block_width, comment_block_height, __comment_type)
     __write_namespace(file, namespace_name, True)
     CBG.write_comment_block(file, 'Local constants / Defines', comment_block_width, comment_block_height, __comment_type)
+    __structs_and_enums(file, file_root, False)
+    
     CBG.write_comment_block(file, file_name + ' Class Methods', comment_block_width, comment_block_height, __comment_type)
-
     class_root = file_root.getElementsByTagName("class")[0]
     __generate_class(file, class_root, file_name, True)
 
@@ -182,8 +246,9 @@ def __generate_header_file_with_class(file, file_root, author_name,
     CBG.write_comment_block(file, 'System Includes', comment_block_width, comment_block_height, __comment_type)
     __write_namespace(file, namespace_name, True)
     CBG.write_comment_block(file, 'Global constants / Defines', comment_block_width, comment_block_height, __comment_type)
+    __structs_and_enums(file, file_root, True)
+            
     CBG.write_comment_block(file, file_name + ' Class', comment_block_width, comment_block_height, __comment_type)
-
     class_root = file_root.getElementsByTagName("class")[0]
     __generate_class(file, class_root, file_name, False)
 

@@ -5,6 +5,52 @@
     <author>Tom V.</author>
     <namespace>new_version</namespace>
     <file name="test">
+        <local>
+            <enum name="LocalTestEnum">
+                <member>
+                    <name>test1</name>
+                </member>
+                <member>
+                    <name>test2</name>
+                </member>
+                <member>
+                    <name>test3</name>
+                </member>
+            </enum>
+            <struct name="LocalTestStruct_s">
+                <member>
+                    <type>int</type>
+                    <name>test</name>
+                </member>
+                <member>
+                    <type>int</type>
+                    <name>test2</name>
+                </member>
+            </struct>
+        </local>
+        <global>
+            <enum name="GlobalTestEnum">
+                <member>
+                    <name>test1</name>
+                </member>
+                <member>
+                    <name>test2</name>
+                </member>
+                <member>
+                    <name>test3</name>
+                </member>
+            </enum>
+            <struct name="GlobalTestStruct_s">
+                <member>
+                    <type>int</type>
+                    <name>test</name>
+                </member>
+                <member>
+                    <type>int</type>
+                    <name>test2</name>
+                </member>
+            </struct>
+        </global>
         <class>
             <constructor>
                 <parameter>
