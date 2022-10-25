@@ -40,28 +40,15 @@ def __group_1_write_doc_file_header(file, file_name, author, date, description =
 #                                                                                                  #
 ####################################################################################################
 
-def cpp_write_doc_method(file, return_type, parameters, description = ""):
-    """
-    Write the doxygen documentation template of a method.
-    """
-    __group_1_write_doc_method(file, return_type, parameters, description)
-
-def c_write_doc_method(file, return_type, parameters, description = ""):
-    """
-    Write the doxygen documentation template of a method.
-    """
-    __group_1_write_doc_method(file, return_type, parameters, description)
-
-def __group_1_write_doc_method(file, return_type, parameters, description = ""):
-    """
-    Write the doxygen documentation template of a method.
-    """
+def __group_1_write_doc_universal(file, return_type, parameters, description = "", is_method = False):
     file.write(f"/**\n")
 
     if description != "":
         file.write(f" * @brief {description}\n")
-    else:
+    elif is_method:
         file.write(" * @brief Brief description of method\n")
+    else:
+        file.write(" * @brief Brief description of function\n")
 
     if len(parameters) != 0 or len(return_type) != 0:
         file.write(f" *\n")
@@ -75,4 +62,30 @@ def __group_1_write_doc_method(file, return_type, parameters, description = ""):
         file.write(f" * @return {return_type}\n")
         
     file.write(f" */\n")
+
+def __group_1_write_doc_method(file, return_type, parameters, description = ""):
+    """
+    Write the doxygen documentation template of a method.
+    """
+    __group_1_write_doc_universal(file, return_type, parameters, description, True)
+    pass
     
+def __group_1_write_doc_function(file, return_type, parameters, description = ""):
+    """
+    Write the doxygen documentation template of a function.
+    """
+    __group_1_write_doc_universal(file, return_type, parameters, description, False)
+
+# +----------------------------------------------------------------------+
+
+def cpp_write_doc_method(file, return_type, parameters, description = ""):
+    """
+    Write the doxygen documentation template of a method.
+    """
+    __group_1_write_doc_method(file, return_type, parameters, description)
+
+def cpp_write_doc_function(file, return_type, parameters, description = ""):
+    """
+    Write the doxygen documentation template of a function.
+    """
+    __group_1_write_doc_function(file, return_type, parameters, description)
