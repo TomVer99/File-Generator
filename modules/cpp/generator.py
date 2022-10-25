@@ -55,9 +55,9 @@ def __write_namespace(file, namespace, is_open):
 
 def __write_include(file, include, local):
     if local:
-        file.write(f"#include \"{include}\"\n")
+        file.write(f"#include \"{include}\"\n\n")
     else:
-        file.write(f"#include <{include}>\n")
+        file.write(f"#include <{include}>\n\n")
 
 # +----------------------------------------------------------------------+
 # |                                                                      |
