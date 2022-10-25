@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<files type="cpp.func">
+    <export_location>../export/</export_location>
+    <author>Tom V.</author>
+    <namespace>new_version</namespace>
+    <file name="func_test">
+        <local>
+            <enum name="LocalTestEnum">
+                <member>
+                    <name>test1</name>
+                </member>
+                <member>
+                    <name>test2</name>
+                </member>
+                <member>
+                    <name>test3</name>
+                </member>
+            </enum>
+            <struct name="LocalTestStruct_s">
+                <member>
+                    <type>int</type>
+                    <name>test</name>
+                </member>
+                <member>
+                    <type>int</type>
+                    <name>test2</name>
+                </member>
+            </struct>
+        </local>
+        <global>
+            <enum name="GlobalTestEnum">
+                <member>
+                    <name>test1</name>
+                </member>
+                <member>
+                    <name>test2</name>
+                </member>
+                <member>
+                    <name>test3</name>
+                </member>
+            </enum>
+            <struct name="GlobalTestStruct_s">
+                <member>
+                    <type>int</type>
+                    <name>test</name>
+                </member>
+                <member>
+                    <type>int</type>
+                    <name>test2</name>
+                </member>
+            </struct>
+        </global>
+        <function name="GetInt">
+            <return>int</return>
+            <parameter>
+                <type>int</type>
+                <name>test</name>
+            </parameter>
+            <parameter>
+                <type>int</type>
+                <name>test2</name>
+            </parameter>
+        </function>
+        <function name="NoParamTest">
+            <return>void</return>
+        </function>
+        <function name="OneParamTest">
+            <return>void</return>
+            <parameter>
+                <type>int</type>
+                <name>test</name>
+            </parameter>
+        </function>
+        <function name="FiveParamTest">
+            <return>void</return>
+            <parameter>
+                <type>int</type>
+                <name>test1</name>
+            </parameter>
+            <parameter>
+                <type>int</type>
+                <name>test2</name>
+            </parameter>
+            <parameter>
+                <type>int</type>
+                <name>test3</name>
+            </parameter>
+            <parameter>
+                <type>int</type>
+                <name>test4</name>
+            </parameter>
+            <parameter>
+                <type>int</type>
+                <name>test5</name>
+            </parameter>
+        </function>
+    </file>
+</files>
