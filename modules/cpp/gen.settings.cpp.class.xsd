@@ -20,6 +20,115 @@
                     <xs:element name="file">
                         <xs:complexType>
                             <xs:sequence>
+                                <xs:choice minOccurs="0" maxOccurs="1">
+                                    <!-- Allow 0..1 local wrappers -->
+                                    <xs:element name="local">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                    <!-- Allow 0..* enums -->
+                                                    <xs:element name="enum">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <!-- Allow each struct to have 1..* members -->
+                                                                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                                                    <xs:element name="member">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                                <!-- Allow optional value -->
+                                                                                <xs:choice minOccurs="0" maxOccurs="1">
+                                                                                    <xs:element name="value" type="xs:string" />
+                                                                                </xs:choice>
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="name" type="xs:string" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                    <!-- Allow 0..* structs -->
+                                                    <xs:element name="struct">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <!-- Allow each struct to have 1..* members -->
+                                                                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                                                    <xs:element name="member">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="type" type="xs:string" />
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="name" type="xs:string" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:choice>
+                                <xs:choice minOccurs="0" maxOccurs="1">
+                                    <!-- Allow 0..1 global wrappers -->
+                                    <xs:element name="global">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                    <!-- Allow 0..* enums -->
+                                                    <xs:element name="enum">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <!-- Allow each struct to have 1..* members -->
+                                                                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                                                    <xs:element name="member">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                                <!-- Allow optional value -->
+                                                                                <xs:choice minOccurs="0" maxOccurs="1">
+                                                                                    <xs:element name="value" type="xs:string" />
+                                                                                </xs:choice>
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="name" type="xs:string" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                                    <!-- Allow 0..* structs -->
+                                                    <xs:element name="struct">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <!-- Allow each struct to have 1..* members -->
+                                                                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                                                    <xs:element name="member">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element name="type" type="xs:string" />
+                                                                                <xs:element name="name" type="xs:string" />
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="name" type="xs:string" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:choice>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:choice>
+                                <!-- Always make sure there is a class -->
                                 <xs:choice minOccurs="1" maxOccurs="1">
                                     <xs:element name="class">
                                         <xs:complexType>
