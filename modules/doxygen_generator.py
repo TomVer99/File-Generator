@@ -89,3 +89,11 @@ def cpp_write_doc_function(file, return_type, parameters, description = ""):
     Write the doxygen documentation template of a function.
     """
     __group_1_write_doc_function(file, return_type, parameters, description)
+    
+# +----------------------------------------------------------------------+
+
+def c_write_doc_function(file, return_type, parameters, description = ""):
+    """
+    Write the doxygen documentation template of a function.
+    """
+    __group_1_write_doc_function(file, return_type, parameters, description)

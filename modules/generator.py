@@ -1,4 +1,5 @@
 import modules.cpp.generator as cpp
+import modules.c.generator as c
 
 import datetime
 import xml.dom.minidom
@@ -28,6 +29,9 @@ def generate_files(export_dir, xml_file, type, settings):
     # cpp
     if type in cpp.get_types():
         return cpp.generate_files(export_dir, xml_root, type, date, comment_block_width, comment_block_height, comment_block_end_of_file_height)
+
+    if type in c.get_types():
+        return c.generate_files(export_dir, xml_root, date, comment_block_width, comment_block_height, comment_block_end_of_file_height)
 
 # +----------------------------------------------------------------------+
 # |                                                                      |
