@@ -6,7 +6,6 @@ import os
 
 if __name__ == '__main__':
 
-    # Get path to this file
     this_folder = os.path.dirname(os.path.abspath(__file__))
     module_folder = os.path.join(this_folder, 'modules')
 

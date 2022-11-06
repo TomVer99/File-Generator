@@ -57,7 +57,7 @@ def __parse_export_location(project_dir, file):
     if common_path == project_dir:
         postfix = location[len(common_path):]
         if not postfix[:3] == '/..' and not postfix[:3] == '\\..':
-            return [False, 'Export location is inside generator directory']
+            return [False, 'Export location intrudes on generator directory']
 
     # if export location does not exist create it
     if not os.path.exists(location):
