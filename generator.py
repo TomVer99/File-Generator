@@ -6,7 +6,7 @@ import os
 
 if __name__ == '__main__':
 
-    this_folder = os.getcwd()
+    this_folder = os.path.dirname(os.path.abspath(__file__))
     module_folder = os.path.join(this_folder, 'modules')
 
     GL.log_notify('Starting generator.py')
@@ -53,6 +53,7 @@ if __name__ == '__main__':
 
     for index, file in enumerate(source_files):
         GL.log_notify('Found source file: ' + file)
+        file = os.path.join(this_folder, file)
         result = P.parse_source_file(this_folder, file)
         if result[0]:
             GL.log_success('Source file is valid')

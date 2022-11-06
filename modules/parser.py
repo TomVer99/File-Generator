@@ -50,11 +50,14 @@ def __parse_export_location(project_dir, file):
     Returns [True, export_location] if successful, [False, error_message] otherwise.
     """
     location = __get_element_content(file, 'export_location')
-    location = os.path.abspath(location)
+    location = os.path.join(project_dir, location)
 
-    # if export location is located in project directory return false
-    if location.startswith(project_dir):
-        return [False, 'Export location intrudes on generator directory']
+    # check if export location is located in generator directory
+    common_path = os.path.commonpath([project_dir, location])
+    if common_path == project_dir:
+        postfix = location[len(common_path):]
+        if not postfix[:3] == '/..' and not postfix[:3] == '\\..':
+            return [False, 'Export location intrudes on generator directory']
 
     # if export location does not exist create it
     if not os.path.exists(location):
